@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Workouts - Fitness App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>My Workouts</h2>
+
+    <form method="POST">
+        <label>Exercise:</label>
+        <select name="exercise_id" required>
+            {% for ex in exercises %}
+            <option value="{{ ex[0] }}">{{ ex[1] }}</option>
+            {% endfor %}
+        </select><br>
+
+        <input type="date" name="date" required><br>
+        <input type="number" name="reps" placeholder="Reps" required><br>
+        <input type="number" name="sets" placeholder="Sets" required><br>
+        <button type="submit">Add Workout</button>
+    </form>
+
+    <h3>Workout History</h3>
+    <table border="1" align="center" cellpadding="8">
+        <tr>
+            <th>ID</th><th>Exercise</th><th>Date</th><th>Reps</th><th>Sets</th>
+        </tr>
+        {% for w in workouts %}
+        <tr>
+            <td>{{ w[0] }}</td>
+            <td>{{ w[1] }}</td>
+            <td>{{ w[2] }}</td>
+            <td>{{ w[3] }}</td>
+            <td>{{ w[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br><a href="/dashboard">Back to Dashboard</a>
+</div>
+</body>
+</html>
+

@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+ fitness:
+   build:
+     context: .
+   container_name: fitness
+   ports:
+    - "5000:5000"
+   networks:
+    - fitness
+   restart: always   
+   environment:
+     MYSQL_HOST: mysql-app
+     MYSQL_USER: root
+     MYSQL_PASSWORD: root
+     MYSQL_DB: fitness_DB
+   healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:5000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s    
+
+ mysql:
+   image: mysql
+   container_name: mysql-app
+   ports:
+    - "3306:3306"
+   networks:
+    - fitness
+   volumes:
+     - fitness_app:/var/lib/mysql
+   environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fitness_DB
+   restart: always
+   healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+networks:
+ fitness:
+volumes:
+  fitness_app:
+
+

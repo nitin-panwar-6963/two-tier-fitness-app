@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Fitness App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container">
+    <h2>Welcome, {{ username }}!</h2>
+    <p>Manage your fitness journey:</p>
+    <a href="/exercises">🏋️ Exercises</a><br>
+    <a href="/workouts">📅 Workouts</a><br><br>
+    <a href="/logout">Logout</a>
+</div>
+</body>
+</html>
+
